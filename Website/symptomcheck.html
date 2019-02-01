@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title> DocPortal - Symptom Check </title>
+		<style type="text/css">
+    body{
+        font-family: Arail, sans-serif;
+    }
+    /* Formatting search box */
+    .search-box{
+        width: 300px;
+        position: relative;
+        display: inline-block;
+        font-size: 14px;
+    }
+    .search-box input[type="text"]{
+        height: 32px;
+        padding: 5px 10px;
+        border: 1px solid #CCCCCC;
+        font-size: 14px;
+    }
+    .result{
+        position: absolute;        
+        z-index: 999;
+        top: 100%;
+        left: 0;
+    }
+    .search-box input[type="text"], .result{
+        width: 100%;
+        box-sizing: border-box;
+    }
+    /* Formatting result items */
+    .result p{
+        margin: 0;
+        padding: 7px 10px;
+        border: 1px solid #CCCCCC;
+        border-top: none;
+        cursor: pointer;
+    }
+    .result p:hover{
+        background: #f2f2f2;
+    }
+</style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
+</head>
+
+
+
+
+
+<body a link="black" vlink="black">
+	<center><h1>DocPortal!</h1></center>
+	<center>
+		<p>
+			<a href="./index.html">Home</a> | <b>Symptom Check</b> | <a href="./drugbank.html">Drug Information</a> | <a href="./patient.html">Patient Log</a>
+
+		</p>
+	</center>
+
+	<center>
+		<p>Enter patient's symptoms below...
+		<br />
+		Return Disease</p>
+	</center>
+
+	<div class = "container">
+		<br />
+		<h2 align="center">MYSQL Search</h2><br />
+		<div class="form-group">
+			<div class="input-group">
+				<span class="input-group-addon">Search</span>
+				<input type="text" name="search_text" id="search_text" placeholder="Search here..." class="form-control" />
+    		</div>
+    	</div>
+    	<br />
+    	<div id="result"></div>
+</body>
+</html>
+
+<script src="jq.js"></script>
+<script>
+	$(document).ready(function(e){
+		$('#search').keyup(function()
+		  {
+			$("#here").show();
+			var x = $(this).val();
+				$.ajax(
+				{
+					type: 'GET',
+					url:"fetch.php",
+					data:'q='+x,
+					success:function(data)
+					{
+					$('#here').html(data);
+					}
+			}
+		});
+	});
+</script>	
+
